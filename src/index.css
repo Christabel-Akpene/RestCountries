@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+@theme{
+  --color-background-color: var( --background-color);
+  --color-elements: var(--elements);
+  --color-text-input: var(--text-input);
+  --color-text-color: var(--text-color);
+}
+
+
+:root {
+  --background-color: hsl(0, 0%, 99%);
+  --elements: hsl(0, 100%, 100%);
+  --text-input: hsl(0, 0%, 50%);
+  --text-color: hsl(200, 15%, 8%);
+  
+}
+
+.dark{
+  --background-color : hsl(207, 26%, 17%);
+  --elements: hsl(209, 23%, 22%);
+  --text-input: hsl(0, 0%, 50%);
+  --text-color: hsl(0, 100%, 100%);
+}
