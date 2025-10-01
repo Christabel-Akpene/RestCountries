@@ -1,8 +1,8 @@
-
+import { Link } from "react-router";
 const CountryCard = ({ country }) => {
   return (
-    <div className="flex flex-col bg-elements-background-color shadow-md rounded-lg overflow-hidden">
-        
+    <Link to={`/country/${country.name.common}`}>
+        <div className="flex flex-col bg-elements-background-color shadow-md rounded-lg overflow-hidden text-text-color">  
       <img
         src={country.flags.png}
         alt={country.flags.alt}
@@ -24,6 +24,8 @@ const CountryCard = ({ country }) => {
         </p>
       </div>
     </div>
+    </Link>
+
   );
 };
 
