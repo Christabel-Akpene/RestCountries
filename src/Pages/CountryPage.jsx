@@ -12,11 +12,9 @@ const CountryPage = ({countries}) => {
   
 
   return (
-    <div className="bg-background-color text-text-color md:px-20 p-5 ">
+    <div className="bg-background-color text-text-color md:px-20 p-5 min-h-dvh ">
       <Link to={"/"}> <button className='w-[120px] rounded-md p-2 shadow-md bg-elements-background-color mb-8 flex justify-center space-x-2'> <span><MoveLeft/></span> <span>Back</span> </button></Link>
-        
           <CountryDetailCard country={country} countries={countries} />
-
     </div>
   )
 }

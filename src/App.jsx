@@ -8,6 +8,7 @@ function App() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,10 +32,36 @@ function App() {
     fetchData();
   }, []);
 
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("savedTheme");
+    const userDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme){
+      setTheme(savedTheme)
+    }
+    else if (userDarkTheme){
+      setTheme("dark")
+    }
+  }, [])
+
+  useEffect(() => {
+    const html = document.documentElement;
+
+    html.classList.remove("light", "dark");
+    html.classList.add(theme);
+    localStorage.setItem("savedTheme", theme)
+
+  }, [theme])
+
+  const toggleTheme = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  }
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout/>}>
+        <Route path="/" element={<Layout toggleTheme={toggleTheme} theme={theme} />}>
         <Route index element={<HomePage countries={data} error={error} loading={loading} />} />
         <Route path={"/country/:id"} element={<CountryPage countries={data} />}/>
         </Route>

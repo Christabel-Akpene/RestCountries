@@ -15,14 +15,14 @@ const HomePage = ({countries, loading, error}) => {
           <Search size={18} />
           <form className="flex-1">
             <input
-              className="pl-2 outline-none w-full"
+              className="pl-2 outline-none w-full text-text-color"
               type="text"
               placeholder="Search for a country"
             />
           </form>
         </div>
 
-              <div
+        <div
         onClick={() => setOpenDropDown(!openDropdown)}
         className="flex justify-between items-center p-2 w-[150px] h-[50px] mt-4 bg-elements-background-color shadow-sm rounded-md cursor-pointer relative ">
         <p>Filter by region</p>
