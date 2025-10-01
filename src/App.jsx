@@ -6,6 +6,8 @@ import CountryPage from "./Pages/CountryPage"
 
 function App() {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState("light");
@@ -20,7 +22,7 @@ function App() {
         }
         const data = await response.json();
         setData(data);
-        console.log(data);
+        setFilteredData(data);
         setError(false);
       } catch (error) {
         setError(true);
@@ -62,7 +64,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout toggleTheme={toggleTheme} theme={theme} />}>
-        <Route index element={<HomePage countries={data} error={error} loading={loading} />} />
+        <Route index element={<HomePage countries={data} error={error} loading={loading} filteredData={filteredData} setFilteredData={setFilteredData}  />} />
         <Route path={"/country/:id"} element={<CountryPage countries={data} />}/>
         </Route>
       </Routes>

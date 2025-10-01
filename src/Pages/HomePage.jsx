@@ -1,11 +1,54 @@
-import { Search, ChevronDown } from "lucide-react";
+import { Search, ChevronDown, Check } from "lucide-react";
 import {  useState } from "react";
 import CountryCard from "../Components/CountryCard";
+import { useEffect } from "react";
 
-const continents = ["Africa", "America", "Asia", "Europe", "Oceania"];
+const continents = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
-const HomePage = ({countries, loading, error}) => {
+const HomePage = ({countries, loading, error, filteredData, setFilteredData}) => {
   const [openDropdown, setOpenDropDown] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredContinent, setFilteredContinent] = useState("");
+  const [errorSearch, setErrorSearch] = useState(false);
+
+  useEffect(() => {
+    setSearchInput("");
+    setFilteredData(countries);
+  }, []);
+
+  const searchCountry = (e) => {
+    setSearchInput(e.target.value);
+    if (e.target.value === ""){
+      setFilteredData(countries);
+      return;
+    }
+    const searchedItem = countries.filter((country) => {
+      return (country.name.official.toLowerCase().includes(e.target.value.toLowerCase()));
+    })
+
+    searchedItem.length === 0 ? setErrorSearch(true) : setErrorSearch(false);
+    
+    setFilteredData(searchedItem);
+  }
+
+  const applyFilter = (continent) => {
+      if (filteredContinent === continent){
+        setFilteredContinent("");
+        setFilteredData(countries);
+      }
+      else{
+          setFilteredContinent(continent);
+          const filteredCountries = countries.filter((country) => {
+          return country.region === continent;
+      });
+      setFilteredData(filteredCountries);
+      }
+  }
+
+
+
+  
+
 
 
   return (
@@ -13,11 +56,13 @@ const HomePage = ({countries, loading, error}) => {
       <div className="sm:flex sm:justify-between sm:items-center">
         <div className="flex items-center space-x-2 bg-elements-background-color p-4 shadow-sm rounded-lg sm:w-[430px]">
           <Search size={18} />
-          <form className="flex-1">
+          <form className="flex-1" onSubmit={(e) => e.preventDefault()}>
             <input
               className="pl-2 outline-none w-full text-text-color"
               type="text"
               placeholder="Search for a country"
+              onChange={searchCountry}
+              value={searchInput}
             />
           </form>
         </div>
@@ -35,8 +80,9 @@ const HomePage = ({countries, loading, error}) => {
           >
             {continents.map((continent, index) => {
               return (
-                <p key={index} className="cursor-pointer">
-                  {continent}
+                <p onClick={()=>applyFilter(continent)} key={index} className="cursor-pointer flex justify-between items-center">
+                  <span>{continent}</span>
+                  {filteredContinent === continent && <Check size={16}/>}
                 </p>
               );
             })}
@@ -53,9 +99,11 @@ const HomePage = ({countries, loading, error}) => {
 
       {error && <div className="mt-6 text-center">Error, try again later</div>}
 
+      {errorSearch && <div className="mt-6 text-center"> No such country exists. Search for another country.</div> }
+
       <div className="p-10 grid grid-cols-1 gap-10 sm:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 md:px-0">
-        {countries &&
-          countries.slice(0,8).map((item) => {
+        {filteredData &&
+          filteredData.map((item) => {
             return <CountryCard key={item.name.common} country={item} />;
           })}
       </div>

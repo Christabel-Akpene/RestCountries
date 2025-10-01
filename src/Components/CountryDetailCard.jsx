@@ -28,7 +28,7 @@ const CountryDetailCard = ({country, countries}) => {
                   const bordercountry = borderCountry.name.common
                   return (
                     <Link key={item} to={`/country/${bordercountry}`}>
-                        <button className="shadow-md rounded-md bg-elements-background-color py-1 px-5 mr-2 m-auto cursor-pointer"> {bordercountry} </button>
+                        <button className="shadow-md rounded-md bg-elements-background-color py-1 px-2 mr-2 m-auto cursor-pointer"> {bordercountry} </button>
                     </Link>
                 )
                 })}</p>
