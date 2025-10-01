@@ -7,7 +7,7 @@ const Header = ({toggleTheme, theme}) => {
         <button className="cursor-pointer" onClick={toggleTheme}>
           <span>
             {
-              theme === "light" ? <Moon size={24} /> : <Sun size={24} />
+              theme === "light" ? <Moon size={24} /> : <Sun size={24}  color="#fff"/>
             }
           </span>
         </button>

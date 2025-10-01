@@ -2,8 +2,8 @@ import { Link } from "react-router"
 
 const CountryDetailCard = ({country, countries}) => {
   return (
-    <div className="flex flex-col sm:flex-row space-x-10 lg:justify-center lg:space-x-20">
-        <img src={country.flags.png} alt={country.flags.alt} className="block w-full h-[200px] object-cover text-text-color sm:w-1/2 lg:w-1/4" />
+    <div className="flex flex-col sm:flex-row space-x-10 lg:justify-center lg:space-x-20 lg:mt-32">
+        <img src={country.flags.png} alt={country.flags.alt} className="block w-full h-[200px] object-contain text-text-color sm:w-1/2 lg:w-1/3" />
         <div className="mt-10 sm:mt-0">
             <p className="font-bold pb-2 text-2xl mb-4"> {country.name.official}</p>
             <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-10">
